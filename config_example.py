@@ -1,0 +1,4 @@
+API_KEY = "YOUR_API_KEY_HERE"
+SECRET_KEY = "YOUR_SECRET_KEY_HERE"
+BASE_URL = "https://paper-api.alpaca.markets"
+START_CAPITAL = 100000
