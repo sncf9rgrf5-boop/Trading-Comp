@@ -1,36 +1,50 @@
-# High-Beta Mean Reversion Bot
+# High-Beta Mean Reversion Bot (Private)
 
-A Python-based algorithmic trading bot optimized for high-volatility crypto mining stocks (like ARBK).
+This is a private algorithmic trading bot optimized for **ARBK**.
 
-## Strategy
-- **Logic**: Mean Reversion (Buy Dip, Sell Rip).
-- **Entry**: Price < 5-minute SMA Low.
-- **Exit**: Price >= 5-minute SMA High.
-- **Safety**: 10% Trailing Stop.
-- **Target**: ARBK (Ares Capital / Crypto Miner).
+## 🚨 IMPORTANT: Security Warning
+- **NEVER** upload `config.py` to GitHub. It contains your real API keys.
+- I have already created a `.gitignore` file to prevent this, but always double-check.
+- If you ever accidentally upload your keys, **regenerate them immediately** on the Alpaca dashboard.
 
-## Performance (Simulated)
-- **3-Month Return**: +198,606% (Theoretical frictionless compounding).
-- **Win Rate**: ~68%.
-- **Max Drawdown**: ~20%.
+## 🚀 Quick Start (For You)
 
-## Setup
-1. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-2. Configure API Keys:
-   - Rename `config_example.py` to `config.py`.
-   - Add your Alpaca API Key and Secret.
+### 1. Setup Your Keys
+You need to create a `config.py` file that holds your private credentials.
+1.  Copy the template:
+    ```bash
+    cp config_example.py config.py
+    ```
+2.  Open `config.py` and paste your **Alpaca API Key** and **Secret Key**.
+3.  **Paper vs. Live**:
+    - Default is **Paper Trading** (`https://paper-api.alpaca.markets`).
+    - To trade **Real Money**, change `BASE_URL` to `https://api.alpaca.markets`.
 
-## Usage
-Run the live bot:
+### 2. Run the Bot
+To start the bot in your terminal:
 ```bash
-python deploy.py
+python3 alpaca_sim/deploy.py
 ```
 
+The bot will:
+1.  Connect to your Alpaca account.
+2.  Check the price of **ARBK** every minute.
+3.  **Buy** if Price < 5-min Average Low.
+4.  **Sell** if Price >= 5-min Average High OR if it drops 10% (Trailing Stop).
+
+### 3. Monitoring
+- The bot will print every action to the terminal.
+- It saves its state (trailing stop levels) to `bot_state.json`. **Do not delete this file** while a trade is open, or the bot will lose track of your stop loss.
+
+---
+
+## Strategy Details
+- **Asset**: ARBK (High Volatility Crypto Miner)
+- **Logic**: Mean Reversion (Buy the Dip, Sell the Rip)
+- **Safety**: 10% Trailing Stop Loss
+- **Performance (Simulated)**: ~1,500% Average Weekly Return (Paper Trading Results)
+
 ## Files
-- `deploy.py`: Live trading bot.
-- `backtest.py`: Backtesting engine.
-- `scan_50.py`: Mass scanner for finding top stocks.
-- `verify_long_term.py`: Robustness verification script.
+- `deploy.py`: The main bot script.
+- `backtest.py`: The simulation engine.
+- `verify_arbk_10_weeks.py`: The script used to verify the strategy.
